@@ -1,19 +1,6 @@
----
-output: html_document
----
+For the project, we preprocessed the ice extent data. The main problem with this dataset it that measures are taken every 2 days, while the co2 are monthly. For this reason, we had to do two things, we should firstly, take a look at the possible exising cycles of ice extent during each month, and secondly, see if we can compress all that information in a few features (like mean and variance or jitter or some statistical feature). Thankfully, we saw almost no variation within the days, as was seen on "IceSurface.R", the ice extent remains almost constant for each day of the month. This is reasonable, since it has no sense having a sensible decrease in ice extent in a certain days, since it is a rather long-termed effect. The other thing we did is we provided a different columns for each one of the hemisphere, instead of having 2 rows for each observation:  one for northern hemisphere and other for the southern, and added two extra columns: global extent and difference between north and south. This can be done, since all measures are an absolute value (10^6 km squared) and they are additive.
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see .
+Then, we merged all the data via month, and calculated the mean for each month. After that, we proceeded to merge co2 dataset and ice extent dataset. 
+This was an easy task after rearranging the times, but we were careful in the merging, so missing values are completely eliminated from both datasets. (This way, we assure that there are no years with co2 data and no ice, we could not make a relationship in that case)
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r}
-summary(cars)
-```
-
-You can also embed plots, for example:
-
-```{r, echo=FALSE}
-plot(cars)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+After doing that, we explored the data. We could observe that ice variation in south pole was almost insignificant, since the regression line was straight completely and variation remained the same. The main concern was for the north pole extent, which is greatly damaged by the co2. We made a graph representing it that can be seen below.
